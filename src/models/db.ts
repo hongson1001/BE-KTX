@@ -10,6 +10,8 @@ import { Request } from "./entities/requests";
 import { User } from "./entities/user";
 import { Violation } from "./entities/violations";
 import { Room } from "./entities/room";
+import { RoomDevice } from "./entities/room-devices";
+import { MaintenanceRequest } from "./entities/maintenance-requests";
 
 dotenv.config();
 
@@ -23,7 +25,7 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   // migrationsRun: true,
   logging: true,
-  entities: [Admin, Contract, Device, Notification, Payment, Request, Room, User, Violation],
+  entities: [Admin, Contract, Device, Notification, Payment, Request, Room, User, Violation, RoomDevice, MaintenanceRequest],
   migrations: ["./migrations/*.ts"],
   subscribers: [],
 });

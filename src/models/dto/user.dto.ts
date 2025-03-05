@@ -7,6 +7,7 @@ export class UpdateUserDto {
     full_name?: string;
     phone?: string;
     student_id?: string;
+    gender?: string;
 }
 
 export class LoginUserDto {

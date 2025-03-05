@@ -1,30 +1,25 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { User } from "./user";
 import { Device } from "./device";
+import { RoomDevice } from "./room-devices";
 
 @Entity()
 export class Room {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique: true })
-    room_number: string;
+    @Column()
+    name: string;
+
+    @Column({ type: "enum", enum: ["male", "female", "other"] })
+    gender: string;
 
     @Column()
-    capacity: number;
+    max_capacity: number;
 
-    @Column({ default: 0 })
-    current_occupants: number;
-
-    @Column("decimal", { precision: 10, scale: 2 })
-    price: number;
-
-    @Column({ type: "enum", enum: ["available", "full", "under_maintenance"], default: "available" })
-    status: string;
+    @OneToMany(() => RoomDevice, (roomDevice) => roomDevice.room)
+    roomDevices: RoomDevice[];
 
     @OneToMany(() => User, (user) => user.room)
-    users: User[];
-
-    @OneToMany(() => Device, (device) => device.room)
-    devices: Device[];
+    users: User[]; 
 }

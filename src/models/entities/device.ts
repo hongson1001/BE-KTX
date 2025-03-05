@@ -7,11 +7,5 @@ export class Device {
     id: number;
 
     @Column()
-    device_name: string;
-
-    @Column({ type: "enum", enum: ["working", "broken", "repairing"], default: "working" })
-    status: string;
-
-    @ManyToOne(() => Room, (room) => room.devices)
-    room: Room;
+    name: string;
 }
