@@ -8,4 +8,7 @@ export class Device {
 
     @Column()
     name: string;
+
+    @Column({ type: "enum", enum: ["good", "broken", "deleted"], default: "good"})
+    status: string;
 }
