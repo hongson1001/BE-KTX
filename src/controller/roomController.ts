@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { RoomService } from "../services/roomService";
+import { AuthRequest } from "../middleware/userMiddleware";
 
 
 export class RoomController {
@@ -51,5 +52,27 @@ export class RoomController {
         } catch (error) {
             res.status(500).send({ status: 500, message: "Có lỗi trong quá trình xử lý", error: error.message });
         }
-    }       
+    }   
+    
+    async getRoommates(req: AuthRequest, res: Response) {
+        try {
+            const userId = req.user?.sub;
+            const response = await this.roomService.getRoommates(userId);
+
+            res.status(200).send({ status: 200, message: "Lấy danh sách thành công", data: response });
+        } catch (error) {
+            res.status(500).send({ status: 500, message: "Có lỗi trong quá trình xử lý", error: error.message });
+        }
+    }
+
+    async getRoomChangeHistory(req: AuthRequest, res: Response) {
+        try {
+            const userId = req.user?.sub;
+            const response = await this.roomService.getRoomChangeHistory(userId);
+
+            res.status(200).send({ status: 200, message: "Lấy danh sách thành công", data: response });
+        } catch (error) {
+            res.status(500).send({ status: 500, message: "Có lỗi trong quá trình xử lý", error: error.message });
+        }
+    }
 }

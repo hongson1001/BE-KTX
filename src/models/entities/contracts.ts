@@ -19,6 +19,10 @@ export class Contract {
     @Column({ type: "date" })
     end_date: string;
 
-    @Column({ type: "enum", enum: ["active", "terminated", "expired"], default: "active" })
+    @Column()
+    duration: number; //Hợp đồng bao tháng
+
+    @Column({ type: "enum", enum: ["pending", "active", "terminated", "expired"], default: "pending" })
     status: string;
+
 }
