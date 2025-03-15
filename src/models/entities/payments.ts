@@ -14,7 +14,13 @@ export class Payment {
     room: Room; // Liên kết với phòng
 
     @Column("decimal", { precision: 10, scale: 2 })
-    amount: number; // Số tiền sinh viên phải đóng
+    rent_amount: number; // Tiền phòng
+
+    @Column("decimal", { precision: 10, scale: 2, default: 0 })
+    utility_amount: number; // Tiền điện nước chia đều
+
+    @Column("decimal", { precision: 10, scale: 2 })
+    total_amount: number; // Tổng số tiền sinh viên phải đóng
 
     @Column({ type: "enum", enum: ["VNPay", "cash", "bank_transfer"], nullable: true })
     payment_method: string;
@@ -25,12 +31,12 @@ export class Payment {
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
     payment_date: Date;
 
-    @Column({ type: "enum", enum: ["rent", "utility"] }) 
-    type: string; // Loại hóa đơn: "rent" (tiền phòng) hoặc "utility" (tiền sinh hoạt)
-
     @Column()
     month: number; // Tháng của hóa đơn
 
     @Column()
     year: number; // Năm của hóa đơn
+
+    @Column({ type: "boolean", default: false })
+    is_settled: boolean; // Đánh dấu đã thanh toán hay chưa
 }

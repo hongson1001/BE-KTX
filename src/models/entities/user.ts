@@ -28,6 +28,9 @@ export class User {
     @Column({ unique: true })
     student_id: string;
 
+    @Column()
+    avatar: string;
+
     @Column({ type: "enum", enum: ["active", "inactive", "graduated", "deleted"], default: "active" })
     status: string;
 
