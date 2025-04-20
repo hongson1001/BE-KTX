@@ -50,6 +50,22 @@ export class RoomDeviceService {
         return updateData;
     }
 
+    async listByRoom(roomId: number): Promise<RoomDevice[]> {
+        const room = await this.roomRepository.findOne({ where: { id: roomId } });
+        if (!room) {
+            throw new Error('Không tìm thấy phòng');
+        }
+    
+        const roomDevices = await this.rdRepository.find({
+            where: { room: { id: roomId } },
+            relations: ['device', 'room'],
+            order: { id: 'DESC' }
+        });
+    
+        return roomDevices;
+    }
+    
+
     async list(page: number, limit: number, search?: string): Promise<{ total: number, page: number, limit: number, rds: RoomDevice[] }> {
         const skip = (page - 1) * limit;
     
@@ -73,7 +89,6 @@ export class RoomDeviceService {
             rds
         };
     }
-    
 
     async detail(id: number): Promise<RoomDevice> {
         const rd = await this.rdRepository.findOne({

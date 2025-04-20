@@ -27,6 +27,25 @@ export class RoomDeviceController {
         }
     }
 
+    async listByRoom(req: Request, res: Response) {
+        try {
+            const roomId = parseInt(req.params.roomId);
+            if (isNaN(roomId)) {
+                return res.status(400).send({ status: 400, message: 'roomId không hợp lệ' });
+            }
+
+            const response = await this.rdService.listByRoom(roomId);
+            return res.status(200).send({ status: 200, message: 'Thành công', data: response });
+        } catch (error) {
+            return res.status(500).send({
+                status: 500,
+                message: 'Có lỗi trong quá trình xử lý',
+                error: error.message,
+            });
+        }
+    }
+
+
     async list(req: Request, res: Response) {
         try {
             const page = parseInt(req.query.page as string) || 1;

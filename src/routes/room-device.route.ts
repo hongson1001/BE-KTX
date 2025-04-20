@@ -7,6 +7,7 @@ const rdController = new RoomDeviceController();
 router.post("/", rdController.create.bind(rdController));
 router.put("/:id", rdController.modify.bind(rdController));
 router.get("/", rdController.list.bind(rdController));
+router.get("/by-room/:roomId", rdController.listByRoom.bind(rdController));
 router.get("/:id", rdController.detail.bind(rdController));
 router.delete("/:id", rdController.remove.bind(rdController))
 
